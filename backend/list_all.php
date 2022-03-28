@@ -3,7 +3,5 @@ require_once '../koneksi.php';
 
 $sql = "select * from mahasiswa";
 $result = pg_query($sql);
-while($row = pg_fetch_object($result)) {
-    echo json_encode($row);
-}
+echo json_encode(pg_fetch_all($result));
 ?>
