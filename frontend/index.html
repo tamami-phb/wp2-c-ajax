@@ -7,6 +7,8 @@
     <body>
         <h1>Aplikasi Mahasiswa</h1>
 
+        <button id="btnTambah">Tambah</button>
+        <a href="tambah.html">Tambah Juga</a>
         <table border="1">
             <thead>
                 <tr>
@@ -53,6 +55,10 @@
                 $("#isi").html(resultTag);
             }
         });
+    });
+
+    $(document).on("click", "#btnTambah", function(evt) {
+        window.location.href="tambah.html";
     });
 </script>        
     </body>
