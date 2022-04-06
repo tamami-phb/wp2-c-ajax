@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>Aplikasi Mahasiswa</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- <script src="js/jquery-migrate-1.4.1.min"></script> -->
     </head>
     <body>
         <h1>Aplikasi Mahasiswa</h1>
@@ -17,21 +19,41 @@
         </table>
 
 <script>
-    const jx = new XMLHttpRequest();
-    jx.open("GET", "https://wp2-c-ajax.herokuapp.com/backend/list_all.php", true);
-    jx.send();
-    jx.onload = function() {
-        const data = JSON.parse(this.responseText);
-        result = "";
-        for(i=0; i<data.length; i++) {
-            result += "<tr>" +
-                "<td>" + data[i].nim + "</td>" +
-                "<td>" + data[i].nama + "</td>" +
-                "<td>" + data[i].kelas + "</td>" +
-                "</tr>";
-        }
-        document.getElementById("isi").innerHTML = result;
-    }
+    // const jx = new XMLHttpRequest();
+    // jx.open("GET", "../backend/list_all.php", true);
+    // jx.send();
+    // jx.onload = function() {
+    //     const data = JSON.parse(this.responseText);
+    //     result = "";
+    //     for(i=0; i<data.length; i++) {
+    //         result += "<tr>" +
+    //             "<td>" + data[i].nim + "</td>" +
+    //             "<td>" + data[i].nama + "</td>" +
+    //             "<td>" + data[i].kelas + "</td>" +
+    //             "</tr>";
+    //     }
+    //     document.getElementById("isi").innerHTML = result;
+    // }
+    $(document).ready(function() {
+        $.ajax({
+            url: "../backend/list_all.php",
+            type: "GET",
+            cache: false,
+            success: function(resp) {
+                // console.log(resp);
+                result = JSON.parse(resp);
+                resultTag = "";
+                for(i=0; i<result.length; i++) {
+                    resultTag += "<tr>" +
+                        "<td>" + result[i].nim + "</td>" +
+                        "<td>" + result[i].nama + "</td>" +
+                        "<td>" + result[i].kelas + "</td>" +
+                        "</tr>";
+                }
+                $("#isi").html(resultTag);
+            }
+        });
+    });
 </script>        
     </body>
 </html>
