@@ -12,28 +12,38 @@
         </form>
 
 <script>
-    $(document).on('click','#simpan', function(evt) {
+    //$(document).on('click','#simpan', function(evt) {
+        $('#simpan').click(function() {
         var data = Object();
-        //alert($('#nim').val());
+        alert($('#nim').val());
         data.nim = $('#nim').val();
         data.nama = $('#nama').val();
         data.kelas = $('#kelas').val();
         //alert(JSON.stringify(data));
-        $.ajax({
-            url: "../backend/tambah.php",
-            type: "POST",
-            data: data,
-            success: function(resp) {
-                alert(resp);
-                if(JSON.parse(resp).status == "success") {
-                    alert("sukses menambahkan data");
-                    window.location.href="index.html";
-                }
-            },
-            error: function(err) {
-                alert("GAGAL Menghubungi server");
-            }
-        });
+        alert('sebelum ajax');
+        $.post("../backend/tambah.php", 
+            JSON.stringify(data), 
+            function(data, status) {
+                alert(data + "; " + status);
+            });
+        // $.ajax({
+        //     url: "../backend/tambah.php",
+        //     type: "POST",
+        //     data: data,
+        //     success: function(resp) {
+        //         alert(resp);
+        //         if(JSON.parse(resp).status == "success") {
+        //             alert("sukses menambahkan data");
+        //             window.location.href="index.html";
+        //         }
+        //     },
+        //     error: function(err) {
+        //         alert("GAGAL Menghubungi server");
+        //     }
+        // }).onload(function(ev) {
+        //     alert("onload");
+        // });
+        alert('setelah ajax');
     });
 </script>
     </body>
