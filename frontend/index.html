@@ -8,7 +8,6 @@
         <h1>Aplikasi Mahasiswa</h1>
 
         <button id="btnTambah">Tambah</button>
-        <a href="tambah.html">Tambah Juga</a>
         <table border="1">
             <thead>
                 <tr>
@@ -21,21 +20,10 @@
         </table>
 
 <script>
-    // const jx = new XMLHttpRequest();
-    // jx.open("GET", "../backend/list_all.php", true);
-    // jx.send();
-    // jx.onload = function() {
-    //     const data = JSON.parse(this.responseText);
-    //     result = "";
-    //     for(i=0; i<data.length; i++) {
-    //         result += "<tr>" +
-    //             "<td>" + data[i].nim + "</td>" +
-    //             "<td>" + data[i].nama + "</td>" +
-    //             "<td>" + data[i].kelas + "</td>" +
-    //             "</tr>";
-    //     }
-    //     document.getElementById("isi").innerHTML = result;
-    // }
+    $(document).on('click', "#btnTambah", function() {
+        window.location.href="tambah.html";
+    });
+
     $(document).ready(function() {
         $.ajax({
             url: "../backend/list_all.php",
@@ -50,6 +38,8 @@
                         "<td>" + result[i].nim + "</td>" +
                         "<td>" + result[i].nama + "</td>" +
                         "<td>" + result[i].kelas + "</td>" +
+                        '<td><button id="hapus" nim="' + result[i].nim +
+                            '">Hapus</button></td>' +
                         "</tr>";
                 }
                 $("#isi").html(resultTag);
@@ -57,8 +47,21 @@
         });
     });
 
-    $(document).on("click", "#btnTambah", function(evt) {
-        window.location.href="tambah.html";
+    $(document).on('click', "#hapus", function() {
+        var nim = $(this).attr("nim");
+        console.log(nim);
+        var param = new Object();
+        param.nim = nim;
+        $.post("../backend/hapus.php", JSON.stringify(param), function(resp) {
+            var obj = JSON.parse(resp);
+            console.log(resp);
+            if(obj.status == "success") {
+                alert("Data berhasil terhapus");
+                window.location.href="index.html";
+            } else {
+                alert("Data gagal terhapus");
+            }
+        });
     });
 </script>        
     </body>

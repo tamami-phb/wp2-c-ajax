@@ -4,17 +4,18 @@ require_once '../koneksi.php';
 $raw = file_get_contents('php://input');
 $data = json_decode($raw);
 
-// echo $data->nim;
+// echo json_encode($data->nim);
 
-$sql = "insert into mahasiswa(nim, nama, kelas) values('" .
-    $data->nim . "','" . $data->nama . "','" . $data->kelas . "')";
+$sql = "delete from mahasiswa where nim='" . $data->nim . "'";
 $result = pg_query($sql);
 $row = pg_affected_rows($result);
+
 $obj = new stdClass();
 if($row > 0) {
-    $obj->result = "success";
+    $obj->status = "success";
 } else {
-    $obj->result = "failed";
+    $obj->status = "fail";
 }
+
 echo json_encode($obj);
 ?>

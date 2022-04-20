@@ -4,46 +4,33 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
-        <form>
-            NIM <input id="nim"><br>
-            NAMA <input id="nama"><br>
-            KELAS <input id="kelas"><br>
-            <button id="simpan">Simpan</button>
-        </form>
+        <h3>Formulir Tambah Data</h3>
+
+
+        NIM <input id="nim"><br>
+        NAMA <input id="nama"><br>
+        KELAS <input id="kelas"><br>
+        <button id="simpan">Simpan</button>
+        
 
 <script>
-    //$(document).on('click','#simpan', function(evt) {
-        $('#simpan').click(function() {
-        var data = Object();
-        alert($('#nim').val());
-        data.nim = $('#nim').val();
-        data.nama = $('#nama').val();
-        data.kelas = $('#kelas').val();
-        //alert(JSON.stringify(data));
-        alert('sebelum ajax');
-        $.post("../backend/tambah.php", 
-            JSON.stringify(data), 
-            function(data, status) {
-                alert(data + "; " + status);
-            });
-        // $.ajax({
-        //     url: "../backend/tambah.php",
-        //     type: "POST",
-        //     data: data,
-        //     success: function(resp) {
-        //         alert(resp);
-        //         if(JSON.parse(resp).status == "success") {
-        //             alert("sukses menambahkan data");
-        //             window.location.href="index.html";
-        //         }
-        //     },
-        //     error: function(err) {
-        //         alert("GAGAL Menghubungi server");
-        //     }
-        // }).onload(function(ev) {
-        //     alert("onload");
-        // });
-        alert('setelah ajax');
+    $(document).on('click', "#simpan", function() {
+        var mhs = new Object();
+        mhs.nim = $("#nim").val();
+        mhs.nama = $("#nama").val();
+        mhs.kelas = $("#kelas").val();
+
+        console.log(mhs);
+        $.post("../backend/tambah.php", JSON.stringify(mhs), function(resp) {
+            console.log(resp);
+            obj = JSON.parse(resp);
+            if(obj.result == "success") {
+                alert("Data telah tersimpan");
+                window.location.href = "index.html";
+            } else {
+                alert("Gagal simpan data");
+            }
+        });
     });
 </script>
     </body>
