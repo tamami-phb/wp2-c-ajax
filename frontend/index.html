@@ -52,9 +52,9 @@
         console.log(nim);
         var param = new Object();
         param.nim = nim;
-        $.post("../backend/hapus.php", JSON.stringify(param), function(resp) {
+        $.post("../backend/hapus.php", JSON.stringify(param), 
+          function(resp) {
             var obj = JSON.parse(resp);
-            console.log(resp);
             if(obj.status == "success") {
                 alert("Data berhasil terhapus");
                 window.location.href="index.html";
