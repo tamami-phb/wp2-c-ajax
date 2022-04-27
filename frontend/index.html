@@ -38,8 +38,8 @@
                         "<td>" + result[i].nim + "</td>" +
                         "<td>" + result[i].nama + "</td>" +
                         "<td>" + result[i].kelas + "</td>" +
-                        '<td><button id="hapus" nim="' + result[i].nim +
-                            '">Hapus</button></td>' +
+                        '<td><button id="hapus" nim="' + result[i].nim + '">Hapus</button></td>' +
+                        '<td><button id="edit" nim="' + result[i].nim + '">Ubah</button></td>' +
                         "</tr>";
                 }
                 $("#isi").html(resultTag);
@@ -62,6 +62,11 @@
                 alert("Data gagal terhapus");
             }
         });
+    });
+
+    $(document).on('click', '#edit', function() {
+        var nim = $(this).attr('nim');
+        window.location.href = "./ubah.html?nim=" + nim;
     });
 </script>        
     </body>
